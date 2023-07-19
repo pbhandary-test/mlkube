@@ -6,11 +6,11 @@ from google.cloud import storage
 from google.oauth2 import service_account
 
 
-GCP_PROJECT_ID = "pbhandarykubeflow"
-SERVICE_ACCOUNT_FILE = "../pbhandarykubeflow-6ae8fcfcd76b.json"
-zip_file_path = "gs://mritestscans/archive_1.zip"
-TARGET_DIRECTORY = "mlkube/notebook/data"
-BUCKET_NAME = "mritestscans"
+GCP_PROJECT_ID = GCP_PROJECT_ID
+SERVICE_ACCOUNT_FILE = SERVICE_ACCOUNT_FILE
+zip_file_path = SERVICE_ACCOUNT_FILE
+TARGET_DIRECTORY = SERVICE_ACCOUNT_FILE
+BUCKET_NAME = BUCKET_NAME
 object_name = 'archive_1.zip'
 directory = "Data"
 
