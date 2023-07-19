@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 HYPEN_E_DOT = '-e .'
 
-def get_requirements(file_path:str)->list[str]:
+def get_requirements(file_path) :
     requirements = [] 
     with open(file_path) as f:
         requirements = [lines.replace("\n","" ) for lines in f.readlines()]
