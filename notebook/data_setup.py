@@ -2,17 +2,31 @@ import shutil
 import os ,io
 import zipfile  
 import pathlib
+import json 
 from google.cloud import storage
 from google.oauth2 import service_account
 
 
-GCP_PROJECT_ID = GCP_PROJECT_ID
-SERVICE_ACCOUNT_FILE = SERVICE_ACCOUNT_FILE
-zip_file_path = SERVICE_ACCOUNT_FILE
-TARGET_DIRECTORY = SERVICE_ACCOUNT_FILE
-BUCKET_NAME = BUCKET_NAME
-object_name = 'archive_1.zip'
-directory = "Data"
+import json
+
+def import_json(file_name):
+
+  with open(file_name, "r") as f:
+    json_data = json.load(f)
+
+  return json_data
+
+json_file = import_json("environ_secrets.json")
+
+
+
+GCP_PROJECT_ID = json_file.GCP_PROJECT_ID
+SERVICE_ACCOUNT_FILE = json_file.SERVICE_ACCOUNT_FILE
+zip_file_path = json_file.zip_file_path
+TARGET_DIRECTORY = json_file.TARGET_DIRECTORY
+BUCKET_NAME = json_file.BUCKET_NAME
+object_name = json_file.object_name
+directory = json_file.directory
 
 category_dict = {1:"Normal",
 2:"glioma_tumor",

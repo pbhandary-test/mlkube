@@ -146,6 +146,11 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
+# env_variables
+environ_secret.json
+
+
+
 # Pyre type checker
 .pyre/
 
