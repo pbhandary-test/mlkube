@@ -3,4 +3,5 @@ pandas
 numpy 
 seaborn
 google-cloud
+google-auth
 -e .

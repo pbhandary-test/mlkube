@@ -7,26 +7,24 @@ from google.cloud import storage
 from google.oauth2 import service_account
 
 
-import json
 
 def import_json(file_name):
+    with open(file_name, "r") as f:
+        json_data = json.load(f)
 
-  with open(file_name, "r") as f:
-    json_data = json.load(f)
+    return json_data
 
-  return json_data
+json_file = import_json( os.path.join(os.path.abspath(".."),"environ_secrets.json"))
 
-json_file = import_json("environ_secrets.json")
+GCP_PROJECT_ID = json_file.get("GCP_PROJECT_ID")
+SERVICE_ACCOUNT_FILE = json_file.get("SERVICE_ACCOUNT_FILE")
+zip_file_path = json_file.get("zip_file_path")
+TARGET_DIRECTORY = json_file.get("TARGET_DIRECTORY")
+BUCKET_NAME = json_file.get("BUCKET_NAME")
+object_name = json_file.get("object_name")
+directory = json_file.get("directory")
 
-
-
-GCP_PROJECT_ID = json_file.GCP_PROJECT_ID
-SERVICE_ACCOUNT_FILE = json_file.SERVICE_ACCOUNT_FILE
-zip_file_path = json_file.zip_file_path
-TARGET_DIRECTORY = json_file.TARGET_DIRECTORY
-BUCKET_NAME = json_file.BUCKET_NAME
-object_name = json_file.object_name
-directory = json_file.directory
+print(SERVICE_ACCOUNT_FILE)
 
 category_dict = {1:"Normal",
 2:"glioma_tumor",
