@@ -13,7 +13,7 @@ def get_requirements(file_path) :
     return requirements
 
 setup(
-name = 'kubeflow_project',
+name = 'kubeflow_project_local_imp_version',
 version = '0.0.1',
 author = 'praneeth_bhandary',
 author_email = 'praneethbhandary@gmail.com',
