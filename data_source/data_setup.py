@@ -94,8 +94,7 @@ with zipfile.ZipFile(archive_file, "r") as zip_file:
                 shutil.copyfileobj(source, target)
                 
         except Exception as e:
-            print(filename +" [] "+ member)
-            raise CustomException(e)
+            raise CustomException(e,sys)
         
 
 delete_file(archive_file)

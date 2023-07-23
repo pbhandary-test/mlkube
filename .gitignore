@@ -149,7 +149,7 @@ dmypy.json
 # env_variables
 environ_secret.json
 pbhandarykubeflow-6ae8fcfcd76b.json
-
+logs/
 
 # Pyre type checker
 .pyre/
