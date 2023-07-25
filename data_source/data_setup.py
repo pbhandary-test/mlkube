@@ -14,7 +14,6 @@ def import_json(file_name):
         json_data = json.load(f)
     return json_data
 
-
 def delete_file(filename):
   """Deletes the file with the given filename."""
   if os.path.exists(filename):
@@ -22,8 +21,6 @@ def delete_file(filename):
   else:
     print(f"File '{filename}' does not exist.")
 
-
-print (os.path.abspath("./environ_secrets.json"))
 json_file = import_json( (os.path.abspath("./environ_secrets.json")))
 
 GCP_PROJECT_ID = json_file.get("GCP_PROJECT_ID")
@@ -35,7 +32,6 @@ object_name = json_file.get("object_name")
 directory = json_file.get("directory")
 archive_file = json_file.get("archive_file")
 
-
 print(SERVICE_ACCOUNT_FILE)
 
 category_dict = {1:"Normal",
@@ -43,8 +39,12 @@ category_dict = {1:"Normal",
 3:"meningioma_tumor",
 4:"pituitary_tumor"}
 
+sub_category = {
+1:"BR",2:"DA",3:"HF",4:"RO",5:"SP",6:"VF",7:"n"
+}
 
-credentials = service_account.Credentials.from_service_account_file(os.path.join("./",SERVICE_ACCOUNT_FILE))
+credentials = service_account.Credentials.\
+    from_service_account_file(os.path.join("./",SERVICE_ACCOUNT_FILE))
 
 
 client = storage.Client(
@@ -63,19 +63,34 @@ with open(object_name, 'wb') as file:
     
 for _,dir_ in category_dict.items():
     new_dir = TARGET_DIRECTORY + directory + "/" + dir_
-    if not os.path.exists(new_dir):
-            os.makedirs(new_dir)   
+    for _, value in sub_category.items():
+        if not os.path.exists(new_dir+"/"+value):
+                os.makedirs(new_dir+"/"+value)   
+
+def subdirectory_check(filename):
+    if f"{sub_category[1]}" in filename:
+        return f"{sub_category[1]}"
+    elif f"{sub_category[2]}" in filename:
+        return f"{sub_category[2]}"
+    elif f"{sub_category[3]}" in filename:
+        return f"{sub_category[3]}"
+    elif f"{sub_category[4]}" in filename:
+        return f"{sub_category[4]}"
+    elif f"{sub_category[5]}" in filename:
+        return f"{sub_category[5]}"
+    elif f"{sub_category[6]}" in filename:
+        return f"{sub_category[6]}"
+    return f"{sub_category[7]}"
             
 def directory_check(directory,filename):
     if f"{category_dict[1]}" in filename:
-        return f"{directory}/{category_dict[1]}"
+        return f"{directory}/{category_dict[1]}/{subdirectory_check(filename)}"
     elif f"{category_dict[2]}" in filename:
-        return f"{directory}/{category_dict[2]}"
+        return f"{directory}/{category_dict[2]}/{subdirectory_check(filename)}"
     elif f"{category_dict[3]}" in filename :
-        return f"{directory}/{category_dict[3]}"
+        return f"{directory}/{category_dict[3]}/{subdirectory_check(filename)}"
     elif f"{category_dict[4]}" in filename :
-        return f"{directory}/{category_dict[4]}"
-
+        return f"{directory}/{category_dict[4]}/{subdirectory_check(filename)}"
 
 with zipfile.ZipFile(archive_file, "r") as zip_file:
     for member in zip_file.namelist():
@@ -87,7 +102,7 @@ with zipfile.ZipFile(archive_file, "r") as zip_file:
             # get the directory name
             my_dir = directory_check(directory,member)
             source = zip_file.open(member)
-            print(os.path.join(my_dir, filename))
+            print("os.path.join(my_dir, filename)>>>> "+os.path.join(my_dir, filename))
             target = open(os.path.join(TARGET_DIRECTORY,my_dir, filename), "wb")
 
             with source, target:
