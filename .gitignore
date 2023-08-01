@@ -145,7 +145,7 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
-
+**/*.json
 # env_variables
 environ_secret.json
 pbhandarykubeflow-6ae8fcfcd76b.json
