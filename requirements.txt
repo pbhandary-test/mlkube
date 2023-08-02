@@ -3,6 +3,7 @@ pandas
 numpy 
 seaborn
 google-cloud
+google-cloud-storage
 google-auth
 tensorflow 
 -e .
